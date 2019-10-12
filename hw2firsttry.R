@@ -46,6 +46,31 @@ do_response <- function(x, y) {
   fina_resu <- number_bulls_and_cows(x, y)
   print(paste("bulls is", fina_resu[1], "cows is", fina_resu[2]))
 }
+check__repea <- function(a, resu) {
+  if (resu == FALSE) {
+    return(resu)
+  } else{
+    l <- length(a)
+    for (i in 1:l) {
+      for (j in 1:l) {
+        if ((i != j) & (a[i] == a[j])) {
+          print("you cannot input repeated digits")
+          resu <- FALSE
+          break
+        }
+        
+      }
+      if ((i != j) & (a[i] == a[j])) {
+        break
+      }
+      
+    }
+    return(resu)
+    
+  }
+}
+
+
 check__numeric <- function(a, resu) {
   if (resu == FALSE) {
     return(resu)
@@ -87,7 +112,7 @@ check__input <- function() {
       readline("Please enter four digit numbers without replacement from 1 to 9 > ")
     c <- unlist(strsplit(numbers_string, ""))
     b <- as.character(c)
-    
+    instruction_ <- check__repea(b, instruction_)
     instruction_ <- check__numeric(b, instruction_)
     instruction_ <- check__length(b, instruction_)
     if (instruction_ == FALSE) {
