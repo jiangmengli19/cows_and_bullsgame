@@ -46,6 +46,23 @@ do_response <- function(x, y) {
   fina_resu <- number_bulls_and_cows(x, y)
   print(paste("bulls is", fina_resu[1], "cows is", fina_resu[2]))
 }
+check__numeric <- function(a, resu) {
+  if (resu == FALSE) {
+    return(resu)
+  } else{
+    suppressWarnings(for (i in 1:length(a)) {
+      if (is.na(as.numeric(a[i]))) {
+        print("you need numeric input")
+        resu <- FALSE
+        break
+      }
+    })
+    return(resu)
+    
+  }
+  
+  
+}
 
 check__length <- function(a, resu) {
   if (resu == FALSE) {
@@ -71,7 +88,7 @@ check__input <- function() {
     c <- unlist(strsplit(numbers_string, ""))
     b <- as.character(c)
     
-    
+    instruction_ <- check__numeric(b, instruction_)
     instruction_ <- check__length(b, instruction_)
     if (instruction_ == FALSE) {
       gutime <- gutime + 1
