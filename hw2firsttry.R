@@ -6,11 +6,8 @@ generate_computer_vector <- function() {
 }
 
 
-get_guess <- function(rematime) {
-  print(paste("you have", rematime, "times"))
-  
-  numbers_string <-
-    readline("Please enter four digit numbers without replacement from 1 to 9 > ")
+get_guess <- function(resultfrominp) {
+  numbers_string <- resultfrominp
   
   user_choice <- as.numeric(unlist(strsplit(numbers_string, "")))
   
@@ -49,12 +46,59 @@ do_response <- function(x, y) {
   fina_resu <- number_bulls_and_cows(x, y)
   print(paste("bulls is", fina_resu[1], "cows is", fina_resu[2]))
 }
+
+check__length <- function(a, resu) {
+  if (resu == FALSE) {
+    return(resu)
+  } else{
+    if (length(a) != 4) {
+      print("you need a 4 digits input")
+      resu <- FALSE
+    }
+    
+    return(resu)
+  }
+  
+  
+  
+}
+check__input <- function() {
+  gutime <- 0
+  for (i in 1:3) {
+    instruction_ <- TRUE
+    numbers_string <-
+      readline("Please enter four digit numbers without replacement from 1 to 9 > ")
+    c <- unlist(strsplit(numbers_string, ""))
+    b <- as.character(c)
+    
+    
+    instruction_ <- check__length(b, instruction_)
+    if (instruction_ == FALSE) {
+      gutime <- gutime + 1
+    }
+    if (instruction_ == TRUE) {
+      break
+    }
+    
+  }
+  result__ <- list(gutime, numbers_string)
+  
+  return(result__)
+  
+}
 bulls_and_cows <- function() {
   com_gu <- generate_computer_vector()
   
   for (i in 0:9) {
     rematime <- 10 - i
-    user_gu <- get_guess(rematime)
+    print(paste("you have", rematime, "times"))
+    finalchec <- check__input()
+    if (finalchec[[1]] == 3) {
+      print("The game is stopped")
+      break
+    }
+    resultfrominp <- finalchec[[2]]
+    user_gu <- get_guess(resultfrominp)
     do_response(com_gu, user_gu)
     fina_res <- number_bulls_and_cows(com_gu, user_gu)
     if (fina_res[1] == 4) {
