@@ -13,30 +13,31 @@ get_guess <- function(resultfrominp) {
   
   return(user_choice)
 }
-number_bulls <- function(x, y) {
-  bulls <- 0
-  for (i in 1:4) {
-    if (x[i] == y[i]) {
-      bulls <- bulls + 1
-    }
-  }
-  return (bulls)
-}
-number_cows <- function(x, y) {
-  bulls <- number_bulls(x, y)
-  tog <- 0
-  for (i in 1:4) {
-    for (j in 1:4) {
-      if (x[i] == y[j]) {
-        tog <- tog + 1
+
+number_bulls_and_cows <- function(x, y) {
+  number_bulls <- function(x, y) {
+    bulls <- 0
+    for (i in 1:4) {
+      if (x[i] == y[i]) {
+        bulls <- bulls + 1
       }
     }
+    return (bulls)
   }
-  cows <- tog - bulls
-  return(cows)
-  
-}
-number_bulls_and_cows <- function(x, y) {
+  number_cows <- function(x, y) {
+    bulls <- number_bulls(x, y)
+    tog <- 0
+    for (i in 1:4) {
+      for (j in 1:4) {
+        if (x[i] == y[j]) {
+          tog <- tog + 1
+        }
+      }
+    }
+    cows <- tog - bulls
+    return(cows)
+    
+  }
   bulls <- number_bulls(x, y)
   cows <- number_cows(x, y)
   result <- c(bulls, cows)
